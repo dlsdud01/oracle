@@ -1,0 +1,64 @@
+-- 1
+SELECT EMP_NAME,
+       SUBSTR(EMP_NO, 1, 2) 생년, 
+       SUBSTR(EMP_NO, 3, 2) 생월,
+       SUBSTR(EMP_NO, 5, 2) 생일
+FROM EMPLOYEE;
+
+-- 2
+SELECT EMP_NAME,
+       SUBSTR(EMP_NO, 1, 8) || '******' 주민번호
+FROM EMPLOYEE;
+
+-- 3
+SELECT EMP_NAME,
+       ABS(FLOOR(HIRE_DATE - SYSDATE)) 근무일수1,
+       FLOOR(SYSDATE - HIRE_DATE) 근무일수2
+FROM EMPLOYEE;
+
+-- 4
+SELECT *
+FROM EMPLOYEE
+WHERE MOD(EMP_ID,2) != 0;
+
+-- 5
+SELECT *
+FROM EMPLOYEE
+WHERE MONTHS_BETWEEN(SYSDATE, HIRE_DATE) / 12 >= 20;
+
+-- 6
+SELECT EMP_NAME, TO_CHAR(SALARY, 'L9,999,999') 급여
+FROM EMPLOYEE;
+
+-- 7
+SELECT EMP_NAME 직원명,
+       DEPT_CODE 부서코드,
+       TO_CHAR(TO_DATE(SUBSTR(EMP_NO, 1,6),'RRMMDD'),'YY"년" MM"월" DD"일"') 생년월일,
+       TRUNC(MONTHS_BETWEEN(SYSDATE, TO_DATE(SUBSTR(EMP_NO, 1, 6))) / 12) 나이
+FROM EMPLOYEE;
+
+-- 8
+SELECT EMP_ID,
+       EMP_NAME,
+       DEPT_CODE,
+       CASE DEPT_CODE
+            WHEN 'D5' THEN '총무부'
+            WHEN 'D6' THEN '기획부'
+            WHEN 'D9' THEN '영업부'
+            ELSE '기타'
+       END AS 부서명
+FROM EMPLOYEE
+WHERE DEPT_CODE IN ('D5','D6','D9');
+
+       
+
+-- 9
+SELECT EMP_NAME,
+       SUBSTR(EMP_NO, 1, 6) "주민번호 앞자리",
+       SUBSTR(EMP_NO, 8, 15) "주민번호 뒷자리",
+       TO_NUMBER(SUBSTR(EMP_NO, 1, 6)) + TO_NUMBER(SUBSTR(EMP_NO, 8, 15)) 합
+FROM EMPLOYEE;
+
+-- 10
+
+-- 11
